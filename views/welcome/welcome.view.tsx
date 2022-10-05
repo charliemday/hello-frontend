@@ -26,9 +26,7 @@ export const WelcomeView: React.FC = () => {
   const handleSignup = (values: SignupFormValues) => {
     signup(values)
       .unwrap()
-      .then((res) => {
-        // TODO: What happens when the user logs in successfully?
-        console.log(res);
+      .then(() => {
         router.push(ROUTES.DASHBOARD);
       })
       .catch(() => setSignupError("Unable to signup with details"));
@@ -39,8 +37,6 @@ export const WelcomeView: React.FC = () => {
     await login(values)
       .unwrap()
       .then((res) => {
-        // TODO: What happens when the signs up successfully?
-        console.log("res", res);
         router.push(ROUTES.DASHBOARD);
       })
       .catch(() => setLoginError("Unable to login with credentials"));

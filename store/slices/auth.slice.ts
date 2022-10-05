@@ -1,15 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { authApi, userApi } from 'api';
-
-export interface UserDetails {
-    firstName: string;
-    lastName: string;
-    email: string;
-}
+import { User } from 'types';
 
 export interface AuthState {
     token: string | null;
-    userDetails: UserDetails | null;
+    userDetails: User | null;
 }
 
 const initialState: AuthState = {
@@ -29,9 +24,6 @@ export const authSlice = createSlice({
             state.token = action.payload.token;
         }),
         builder.addMatcher(userApi.endpoints.userDetails.matchFulfilled, (state, action) => {
-            
-            console.log('Action', action.payload);
-
             // state.userDetails = action.payload;
         })
     },

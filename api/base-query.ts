@@ -1,6 +1,7 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 import { BASE_URL } from "config";
 import { RootState } from "store/store";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
@@ -9,11 +10,25 @@ export const baseQuery = fetchBaseQuery({
 
     // If we have a token set in state, let's assume that we should be passing it.
     if (token) {
-      headers.set('Authorization', `Bearer ${token}`)
+      headers.set('authorization', `Token ${token}`)
     }
-
-    console.log('Headers', headers);
 
     return headers
   },
+});
+
+export enum TAG_TYPES {
+  ACCOUNTS = 'Accounts',
+  TERRITORIES = 'Territories',
+  OPPORTUNITIES = 'Opportunities',
+  TEAMS = 'Teams',
+  USERS = 'Users',
+}
+
+
+export const baseApi = createApi({
+  reducerPath: 'api',
+  baseQuery,
+  tagTypes: Object.values(TAG_TYPES),
+  endpoints: () => ({}),
 });
